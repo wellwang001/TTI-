@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>工资计算器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        h1 {
+            width: 100%;
+            height: 120px;
+            line-height: 120px;
+            text-align: center;
+        }
+        
+        .box {
+            width: 500px;
+            height: 700px;
+            background: -webkit-linear-gradient(left top, #6CE8FD, #0D015B);
+            margin: 0 auto;
+            margin-top: 10%;
+        }
+        
+        .box ul li {
+            width: 500px;
+            height: 50px;
+            /*  background: -webkit-linear-gradient(left top, #fff687 , #f6416c); */
+            text-align: center;
+        }
+        
+        .box ul li label input {
+            width: 50%;
+            height: 50%;
+            border: 1px solid skyblue
+        }
+        
+        .final {
+            margin-left: 90px;
+        }
+        
+        #sum {
+            width: 300px;
+            height: 40px;
+            margin: 0 auto;
+            text-align: center;
+            margin-left: 100px;
+            margin-bottom: 15px;
+            /* background: linear-gradient(left top,#fff687 , #f6416c); */
+            background: #e72808;
+            border-style: none;
+            /* Safari 5.1 - 6.0 */
+            /* background: -o-linear-gradient(bottom right, #fff687, #f6416c); /* Opera 11.1 - 12.0 */
+            */
+            /* background: -moz-linear-gradient(bottom right, #fff687, #f6416c); /* Firefox 3.6 - 15 */
+            */
+            /* background: linear-gradient(to bottom right, #fff687 , #f6416c); /* */
+        }
+       
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h1>TTI工资计算器</h1>
+        <ul id="box">
+            <li><label for="base">基本工资:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="base"></label></li>
+            <li> <label for="ordinary">平时加班:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="ordinary"></label></li>
+            <li><label for="week">周末加班:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="week"></label></li>
+            <li><label for="year">年资津贴:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="year"></label></li>
+            <li><label for="sleepOutside">外宿补贴:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="sleepOutside"></label></li>
+            <li> <label for="fullMonth">全勤奖:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="fullMonth"></label></li>
+            <li> <label for="technology">技术补贴:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="technology"></label></li>
+            <li> <label for="others">其他补贴:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="others"></label></li>
+
+        </ul>
+        <input type="button" id="sum" value="计算">
+        <div class="final" id="final">
+        </div>
+    </div>
+    <script type="text/javascript">
+        window.onload = function() {
+            function sum() {
+                var base = document.getElementById('base');
+                var ordinary = document.getElementById('ordinary');
+                var week = document.getElementById('week');
+                var year = document.getElementById('year');
+                var sleepOutside = document.getElementById('sleepOutside');
+                var technology = document.getElementById('technology');
+                var fullMonth = document.getElementById('fullMonth');
+                 var others=document.getElementById('others')
+                var final = document.getElementById('final');
+                
+                var sum = document.getElementById('sum')
+                var obj = document.getElementsByTagName('li');
+                var box=document.getElementById('box')
+                var eve=box.getElementsByTagName('input');
+                	for(var i=0;i<eve.length;i++){
+                		(function (j) {
+                			eveValue=eve[j].value=0;
+                			eve[j].onfocus=function () {
+                				this.style.border="1px solid skyblue"
+                			}
+                			eve[j].onblur=function () {
+                				
+                				if(eve[j].value==''||isNaN(eve[j].value)){
+                					this.style.border="1px solid red"
+                				}
+                			}
+                			return j;
+                		})(i);
+                	}
+                	sum.onclick=function () {
+                		var b1=parseFloat(base.value);
+                		var b2=b1/21.75/8*1.5*parseFloat(ordinary.value);
+                		var b3=b1/21.75/8*2*parseFloat(week.value)
+                		var sumMall=b1+b2+b3+parseFloat(year.value)+parseFloat(sleepOutside.value)+parseFloat(fullMonth.value)+parseFloat(others.value)+parseFloat(technology.value);
+                		if(isNaN(sumMall)){
+                			final.innerHTML="请输入您的数据！"
+                		}else{
+                			final.innerHTML="您这个月的工资是"+sumMall.toFixed(2)+"元！";
+
+                		}
+                		
+                	}
+
+            }
+
+            sum();
+        }
+    </script>
+    <!-- <label for="">基本工资<input type="text"></label>
+        <label for="">平时加班时长<input type="text"></label>
+        <label for="">周末加班时长<input type="text"></label>
+        <label for="">年资津贴<input type="text"></label>
+        <label for="">外宿补贴<input type="text"></label>
+        <label for="">全勤奖<input type="text"></label>  
+
+    </div>
+</body>
+
+</html>
